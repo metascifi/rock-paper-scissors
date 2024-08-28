@@ -12,5 +12,4 @@ Your picked option should be "thrown" with your opponent at the same time and th
 
 You play 5 round with a bot. The higher win number the bigger score you have so it means you win (or lose if the enemies score bigger).
 
-
-
+Based on HTML, JS.
