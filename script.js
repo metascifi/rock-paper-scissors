@@ -1,3 +1,9 @@
+let humanScore = 0; 
+let computerScore = 0;
+let targetID = "";
+let playedNum = 0;
+
+
 function getComputerChoice() {
     let randomNumber = Math.floor(Math.random() * 3);
     if (randomNumber === 0) {
@@ -9,72 +15,93 @@ function getComputerChoice() {
     };
 }
 
-function getHumanChoice() {
-   return prompt("What will you throw in? Pick your choice below!\n - Rock\n - Paper\n - Scissors")
-}
+
+const btnRock = document.querySelector('#rock');
+const btnPaper = document.querySelector("#paper");
+const btnScissors = document.querySelector("#scissors");
+const resultInfo = document.querySelector("#result");
+
+document.addEventListener("click", (event) => {
+        let target = event.target;
+        targetID = target.id;
+
+        switch(targetID){
+            case "rock": 
+                playRound(); 
+                break;
+            case "paper": 
+                playRound(); 
+                break;
+            case "scissors": 
+                playRound(); 
+                break;
+        }
+
+        ++playedNum;
+        resultInfo.style.color = "#00ffe5";
+        if (playedNum === 5){
+            if (humanScore === computerScore) {
+                resultInfo.textContent = "It's a draw!";
+                resultInfo.style.color = "white";
+            } else if (humanScore > computerScore) {
+                resultInfo.textContent = `You won with score ${humanScore} - ${computerScore}!`;
+                resultInfo.style.color = "green";
+            } else {
+                resultInfo.textContent = `You lost with score ${humanScore} - ${computerScore}!`;
+                resultInfo.style.color = "red";
+            };
+            humanScore = 0;
+            computerScore = 0;
+            playedNum = 0;
+
+        };
+    });
 
 
-function playGame() {
-
-    let humanScore = 0; 
-    let computerScore = 0;
-
-    function playRound(humanChoice = getHumanChoice().toLowerCase(), computerChoice = getComputerChoice().toLowerCase()) {
-        switch (humanChoice) {
+    function playRound(computerChoice = getComputerChoice().toLowerCase()) {
+        
+        switch (targetID) {
     
             case computerChoice:
-                console.log('A tie!');
+                resultInfo.textContent = 'A tie!';
                 ++computerScore;
                 ++humanScore;
                 break;
     
             case "rock":
                 if (computerChoice === "scissors"){
-                    console.log("You win! Rock beats Scissors!")
+                    resultInfo.textContent = "You win! Rock beats Scissors!";
                     ++humanScore;
                 } else {
-                    console.log("You lose! Paper beats Rock!")
+                    resultInfo.textContent = "You lose! Paper beats Rock!";
                     ++computerScore;
                 };
                 break;
     
             case "paper": 
                 if (computerChoice === "rock"){
-                    console.log("You win! Paper beats Rock!")
+                    resultInfo.textContent = "You win! Paper beats Rock!";
                     ++humanScore;
                 } else {
-                    console.log("You lose! Scissors beats Paper!")
+                    resultInfo.textContent = "You lose! Scissors beats Paper!";
                     ++computerScore;
                 };
                 break;
             
             case "scissors" : 
                 if (computerChoice === "paper") {
-                    console.log("You win! Scissors beats Paper!")
+                    resultInfo.textContent = "You win! Scissors beats Paper!"; 
                     ++humanScore;
                 } else {
-                    console.log("You lose! Rock beats Scissors!")
+                    resultInfo.textContent = "You lose! Rock beats Scissors!"; 
                     ++computerScore;
                 };
                 break;
         }
     };
 
-    playRound();
-    playRound();
-    playRound();
-    playRound();
-    playRound();
 
 
-    if (humanScore === computerScore) {
-        console.log("It's a draw!")
-    } else if (humanScore > computerScore) {
-        console.log(`You won with score ${humanScore} - ${computerScore}!`)
-    } else {
-        console.log(`You lost with score ${humanScore} - ${computerScore}!`)
-    }
-};
 
 
 
